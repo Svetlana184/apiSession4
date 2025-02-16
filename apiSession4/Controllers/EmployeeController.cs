@@ -1,9 +1,11 @@
 ﻿using apiSession4.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace apiSession4.Controllers
 {
     [ApiController]
+    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private RoadOfRussiaContext db;
