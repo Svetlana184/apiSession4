@@ -17,7 +17,7 @@ public partial class Event
 
     public DateTime DateOfEvent { get; set; }
 
-    public int EventManagers { get; set; }
+    public string EventManagers { get; set; } = null!;
 
     public string TypeOfClass { get; set; } = null!;
 

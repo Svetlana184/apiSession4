@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace apiSession4.Controllers
 {
     [ApiController]
-    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private RoadOfRussiaContext db;
@@ -20,11 +19,21 @@ namespace apiSession4.Controllers
             var emp = from e in db.Employees
                       select new
                       {
-                          FIO = e.Surname + " " + e.FirstName + " " + e.SecondName,
-                          Email = e.Email,
-                          Phone = e.PhoneWork,
-                          Position = e.Position,
-                          BirthDay = DateTime.Parse(e.BirthDay.ToString()!).ToString("M"),
+                          e.IdEmployee,
+                          e.Surname,
+                          e.FirstName,
+                          e.SecondName,
+                          e.Position,
+                          e.PhoneWork,
+                          e.Phone,
+                          e.Cabinet,
+                          e.Email,
+                          e.IdDepartment,
+                          e.IdHelper,
+                          e.Other,
+                          e.BirthDay,
+                          e.IdBoss,
+                          e.IsFired
                       };
             return emp.AsQueryable();
         }

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace apiSession4.Controllers
 {
     [ApiController]
-    [Authorize]
     public class EventController : ControllerBase
     {
         private RoadOfRussiaContext db;
@@ -17,17 +16,19 @@ namespace apiSession4.Controllers
         [Route("Events")]
         public IQueryable GetEvents()
         {
-            var events = from e in db.Events
-                         select new
-                         {
-                             EventName = e.EventName,
-                             EventDate = e.DateOfEvent.ToString("dd.MM.yyyy"),
-                             Author = db.Employees.FirstOrDefault(p => p.IdEmployee == e.EventManagers)!.Surname + 
-                             " " + db.Employees.FirstOrDefault(p => p.IdEmployee == e.EventManagers)!.FirstName.Substring(0, 1) + ". " 
-                             + db.Employees.FirstOrDefault(p => p.IdEmployee == e.EventManagers)!.SecondName!.Substring(0, 1) + ".",
-                             Description = e.EventDescription
-                         };
-            return events.AsQueryable();
+            var ev = from e in db.Events
+                      select new
+                      {
+                          e.IdEvent,
+                          e.EventName,
+                          e.TypeOfEvent,
+                          e.EventStatus,
+                          e.EventDescription,
+                          e.DateOfEvent,
+                          e.EventManagers,
+                          e.TypeOfClass
+                      };
+            return ev.AsQueryable();
 
         }
 
