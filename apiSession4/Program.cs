@@ -14,6 +14,15 @@ builder.Services.AddDbContext<RoadOfRussiaContext>(options =>            options
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .SetIsOriginAllowed((host) => true)
+            .AllowAnyHeader());
+});
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
@@ -21,7 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapControllers();
-
+app.UseCors("CorsPolicy");
 
 app.MapGet("/", () => "Hello World!");
 app.MapControllers();
