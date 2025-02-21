@@ -28,12 +28,13 @@ namespace apiSession4.Controllers
                           e.Phone,
                           e.Cabinet,
                           e.Email,
-                          e.IdDepartment,
+                          Department = db.Departments.FirstOrDefault(p => p.IdDepartment == e.IdDepartment)!.DepartmentName,
                           e.IdHelper,
                           e.Other,
                           e.BirthDay,
                           e.IdBoss,
-                          e.IsFired
+                          e.IsFired,
+                          Company = "Дороги России"
                       };
             return emp.AsQueryable();
         }

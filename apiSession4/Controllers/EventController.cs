@@ -25,7 +25,7 @@ namespace apiSession4.Controllers
                           e.EventStatus,
                           e.EventDescription,
                           e.DateOfEvent,
-                          e.EventManagers,
+                          EventManagers = db.Employees.FirstOrDefault(p => p.IdEmployee.ToString() == e.EventManagers),
                           e.TypeOfClass
                       };
             return ev.AsQueryable();
